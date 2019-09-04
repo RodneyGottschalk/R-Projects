@@ -1,0 +1,1302 @@
+---
+title: "Data_Toolbox"
+author: "Rodney Gottschalk"
+date: "October 30, 2018"
+output: html_document
+---
+# Fundamentals
++ ## **Matrices & Linear Algebra Fundamentals**
+
+A matrix is a collection of data elements arranged in a two-dimensional rectangular layout. The following is an example of a matrix with 2 rows and 3 columns.
+
+   2 | 4 | 3 
+  ---|---|---
+   1 | 5 | 7 
+   
+We reproduce a memory representation of the matrix in R with the matrix function.
+
+ A = matrix(
+ 
++ c(2, 4, 3, 1, 5, 7), | the data elements 
++ nrow=,               | number of rows to create in a matrix
++ ncol=,               | number of columns to create in a matrix
++ byrow = TRUE)        | fill matrix by rows 
+
+An element at the mth row, nth column of A can be accessed by the expression A[m, n].
+
+The entire mth row A can be extracted as A[m, ].
+
+Similarly, the entire nth column A can be extracted as A[ ,n].
+
+We can also extract more than one rows or columns at a time using A[ ,c(1,3)]  # the 1st and 3rd columns are pulled 
+
+If we assign names to the rows and columns of the matrix, then we can access the elements by names.
+
++ Linear equations
+
+Linear equations are composed of variables (like "x" or "y") and constants
+
+Linear equations do not contain Exponents, Square roots, or Cube roots
+
+**Slope-Intercept Form:** $y = mx + b$
+
+**Point-Slope Form:** $y - y1 = m(x - x1)$
+
+**General Form of a Straight Line:** $Ax + By + C$
+
++ ### **System of linear equations**
+
+***Solving By Substitution
+These are the steps:***
+
+1. Write one of the equations so it is in the style "variable = ..."
+2. Replace (i.e. substitute) that variable in the other equation(s).
+3. Solve the other equation(s)
+
+**Example:**
+
+$3x + 2y = 19$
+
+$x + y = 8$
+
+**We can start with any equation and any variable. (Let's use the second equation and the variable "y" (it looks the simplest equation).)**
+
+Write one of the equations so it is in the style "variable = ?":
+
+**We can subtract x from both sides of $x + y = 8$ to get $y = 8 - x$. Now our equations look like this:**
+
+$3x + 2y = 19$
+
+$y = 8 -  x$
+ 
+**Now replace "y" with "8 ??? x" in the other equation:**
+
+$3x + 2(8 - x) = 19$
+
+$y = 8 - x$
+ 
+**Solve using the usual algebra methods:**
+
+**Expand $2(8 - x)$:**
+
+$3x + 16 -  2x = 19$
+
+$y = 8 - x$
+
+**Then $3x - 2x = x$:**
+
+$x + 16 = 19$
+
+$y = 8 -  x$
+
+**And lastly $19 - 16=3$**
+
+$x = 3$
+
+$y = 8 -  x$
+ 
+**Now we know what x is, we can put it in the $y = 8 - x$ equation:**
+
+$x = 3$
+
+$y = (8 - 3) = 5$
+
+**And the answer is:**
+
+**$x = 3$**
+
+**$y = 5$**
+
++ ### **Cramer's rule**
+
+Given a system of linear equations, Cramer's Rule is a handy way to solve for just one of the variables without having to solve the whole system of equations. They don't usually teach Cramer's Rule this way, but this is supposed to be the point of the Rule: instead of solving the entire system of equations, you can use Cramer's to solve for just one single variable.
+
+**Example -- Let's use the following system of equations:**
+
+$2x +  y + z = 3$ 
+
+ $x -  y - z = 0$ 
+ 
+ $x + 2y + z = 0$
+
+We have the left-hand side of the system with the variables (the "coefficient matrix") and the right-hand side with the answer values. Let D be the determinant of the coefficient matrix of the above system, and let Dx be the determinant formed by replacing the x-column values with the answer-column values:
+
+**System of Equations:**
+
+2x + 1y + 1z = 3
+
+1x - 1y - 1z = 0
+
+1x + 2y + 1z = 0
+
+**Coefficient Matrix's Determinant (D):**
+
+2 | 1| 1 
+--|--|--
+1 |-1|-1 
+1 | 2| 1 
+    
+**Answer Column:**
+
+ 3 |
+---|---
+ 0 |
+ 0 |
+    
+**Dx: coefficient determinant with answer-column values in x-column:**
+  
+3 | 1| 1 
+--|--|--
+0 |-1|-1 
+0 | 2| 1 
+     
+**Similarly, Dy would then be:**
+
+2 |3 | 1
+--|--|--
+1 |0 |-1 
+1 |0 | 1 
+
+**Similarly, Dz would then be:**
+
+2 | 1| 3
+--|--|--
+1 |-1| 0 
+1 | 2| 0 
+
+**Evaluating each determinant, we get:**
+
+D  = 3
+
+Dx = 3
+
+Dy = -6
+
+Dz = 9
+
+**Cramer's Rule says that:**
+
+x = Dx ÷ D
+
+y = Dy ÷ D
+
+z = Dz ÷ D
+
+**Therefore:**
+
+x = 3/3 =>    1
+
+y = -6/3 =>  -2
+
+z = 9/3 =>    3
+
+That's all there is to Cramer's Rule. To find whichever variable you want (call it "ß" or "beta"), just evaluate the determinant quotient Dß ÷ D.
+
+
++ ### **Determinant**
+
+The determinant of a matrix is a special number that can be calculated from a square matrix.
+The determinant tells us things about the matrix that are useful in systems of linear equations,and helps us find the inverse of a matrix, which is useful in calculus.
+
+First of all the matrix must be square (i.e. have the same number of rows as columns). Then it is just basic arithmetic.
+
+**2 x 2 Matrix:**
+
+$|A| = A*D - B*C$
+
+**3 x 3 Matrix:**
+
+$|A| = A(EI - FH) - B(DI - FG) + C(DH - EG)$
+
+**4 x 4 & Higher:**
+
+Use a matrix calculator
+
++ ### **Vector spaces**
+
+A vector space V is a set that is closed under finite vector addition and scalar multiplication. The basic example is n-dimensional Euclidean space R^n, where every element is represented by a list of n real numbers, scalars are real numbers, addition is componentwise, and scalar multiplication is multiplication on each term separately.
+
+For a general vector space, the scalars are members of a field F, in which case V is called a vector space over F.
+
+Euclidean n-space R^n is called a real vector space, and C^n is called a complex vector space.
+
+In order for V to be a vector space, the following conditions must hold for all elements X,Y,Z in V and any scalars r,s in F:
+
+1. **Commutativity:**
+
+    $X + Y = Y + X$
+    
+2. **Associativity of vector addition:**
+
+    $(X + Y) + Z = X + (Y + Z)$	
+    
+3. **Additive identity: For all X:**
+
+    $0 + X = X + 0 = X$
+    
+4. **Existence of additive inverse: For any X, there exists a -X such that**
+
+    $X + (-X) = 0$
+5. **Associativity of scalar multiplication:**
+
+    $r(sX) = (rs)X$
+    
+6. **Distributivity of scalar sums:**
+
+    $(r +s)X = rX + sX$
+ 
+7. **Distributivity of vector sums:**
+
+    $r(X + Y) = rX + rY$ 	
+
+8. **Scalar multiplication identity:**
+
+    $1X = X$
+    
+Let V be a vector space of dimension n over the field of q elements (where q is necessarily a power of a prime number). Then the number of distinct nonsingular linear operators on V is
+
+$M(n,q) =	(q^n-q^0)(q^n-q^1)(q^n-q^2)...(q^n-q^(n-1))$
+
+$= q^(n^2)(q^(-n);q)_n$
+	  
+and the number of distinct k-dimensional subspaces of V is
+
+$S(k,n,q)	=	((q^n-q^0)(q^n-q^1)(q^n-q^2)...(q^n-q^(k-1)))/(M(k,q))$
+    
+$= ((q^n-1)(q^(n-1)-1)(q^(n-2)-1)...(q^(n-k+1)-1))/((q^k-1)(q^(k-1)-1)(q^(k-2)-1)...(q-1))$
+    
+$= (q^((k-n)n)(q^(-n);q)_k)/((q^(-n),q)_n)$
+	  
+where (q;a)_n is a q-Pochhammer symbol.
+
+A consequence of the axiom of choice is that every vector space has a vector basis.
+
+A module is abstractly similar to a vector space, but it uses a ring to define coefficients instead of the field used for vector spaces. Modules have coefficients in much more general algebraic objects
+
++ ### **Inclusion Mapping**
+
+Definition:
+
+Let X be a subset of Y. Then the inclusion map from X to Y is the mapping
+
+**In other words, the inclusion map is simply a fancy way to say that every element in X is also an element in Y.**
+
++ ### **Structures**
+Linear structure (totally ordered structure): A collection of items ordered by a single property so that each item, except possibly for the first or last, has a unique "predecessor" and a unique "successor". It is the most commonly used structure and appears under a variety of names depending on storage representation and its intended use. Linked representations are normally called lists while sequential representations are called arrays.
+
+Stacks, queues, deques, and lists are examples of data collections whose items are ordered depending on how they are added or removed. Once an item is added, it stays in that position relative to the other elements that came before and came after it. Collections such as these are often referred to as linear data structures.
+
+Linear structures can be thought of as having two ends. Sometimes these ends are referred to as the "left" and the "right" or in some cases the "front" and the "rear." You could also call them the "top" and the "bottom." The names given to the ends are not significant. What distinguishes one linear structure from another is the way in which items are added and removed, in particular the location where these additions and removals occur. For example, a structure might allow new items to be added at only one end. Some structures might allow items to be removed from either end.
+
+These variations give rise to some of the most useful data structures in computer science. They appear in many algorithms and can be used to solve a variety of important problems.
+
+
++ ## **Multi-linear algebra**
+
+The branch of algebra dealing with multilinear mappings between modules (in particular, vector spaces). The first sections of multilinear algebra were the theory of bilinear and quadratic forms, the theory of determinants, and the Grassmann calculus that extends this. A basic role in multilinear algebra is played by the concepts of a tensor product, a tensor on a vector space and a multilinear form. The applications of multilinear algebra to geometry and analysis are related mainly to tensor calculus and differential forms (cf. Differential form).
+
++ ### **Tensors**
+
+An nth-rank tensor in  m-dimensional space is a mathematical object that has n indices and m^n components and obeys certain transformation rules. Each index of a tensor ranges over the number of dimensions of space. However, the dimension of the space is largely irrelevant in most tensor equations (*with the notable exception of the contracted Kronecker delta*). **Tensors are generalizations of scalars (that have no indices), vectors (that have exactly one index), and matrices (that have exactly two indices) to an arbitrary number of indices.**
+
+Tensors provide a natural and concise mathematical framework for formulating and solving problems in areas of physics such as elasticity, fluid mechanics, and general relativity.
+
+The notation for a tensor is similar to that of a matrix (i.e., $A=(a_ij)$, except that a tensor may have an arbitrary number of indices. In addition, a tensor with rank r+s may be of mixed type (r,s), consisting of r so-called "contravariant" (upper) indices and s "covariant" (lower) indices. Note that the positions of the slots in which contravariant and covariant indices are placed are significant so, for example,  $a_(\mu\nu)^(\lambda)$ is distinct from $a_\mu^(\nu\lambda)$.
+
+While the distinction between covariant and contravariant indices must be made for general tensors, the two are equivalent for tensors in three-dimensional Euclidean space, and such tensors are known as Cartesian tensors.
+
+Objects that transform like zeroth-rank tensors are called scalars, those that transform like first-rank tensors are called vectors, and those that transform like second-rank tensors are called matrices. In tensor notation, a vector v would be written $v_i$, where i=1, ... m, and matrix is a tensor of type (1,1), which would be written $a_i^j$ in tensor notation.
+
+Tensors may be operated on by other tensors (such as metric tensors, the permutation tensor, or the Kronecker delta) or by tensor operators (such as the covariant derivative). The manipulation of tensor indices to produce identities or to simplify expressions is known as index gymnastics, which includes index lowering and index raising as special cases. These can be achieved through multiplication by a so-called metric tensor $g_(ij)$, $g^(ij)$, $g_i^j$, etc., e.g.,
+
+$g^(ij)A_j	=	A^i$
+
+$g_(ij)A^j	=	A_i$
+
+Tensor notation can provide a very concise way of writing vector and more general identities. For example, in tensor notation, the dot product u·v is simply written
+
+$u·v=u_iv^i$
+ 
+where repeated indices are summed over (Einstein summation). Similarly, the cross product can be concisely written as
+
+$(uxv)_i=\epsilon_(ijk)u^jv^k$ 	
+
+where $\epsilon_(ijk)$ is the permutation tensor.
+
+Contravariant second-rank tensors are objects which transform as
+
+$A^('ij) = (partialx_i^')/(partialx_k)(partialx_j^')/(partialx_l)A^(kl)$	
+
+Covariant second-rank tensors are objects which transform as
+
+$C_(ij)^'=(partialx_k)/(partialx_i^')(partialx_l)/(partialx_j^')C_(kl)$ 	
+
+Mixed second-rank tensors are objects which transform as
+
+$B^'_j^i=(partialx_i^')/(partialx_k)(partialx_l)/(partialx_j^')B^k_l$ 	
+
+If two tensors A and B have the same rank and the same covariant and contravariant indices, then they can be added in the obvious way,
+
+$A^(ij)+B^(ij)	=	C^(ij)$	
+
+$A_(ij)+B_(ij)	=	C_(ij)$	
+
+$A^i_j+B^i_j	=	C^i_j$	
+
+The generalization of the dot product applied to tensors is called tensor contraction, and consists of setting two unlike indices equal to each other and then summing using the Einstein summation convention. Various types of derivatives can be taken of tensors, the most common being the comma derivative and covariant derivative.
+
+If the components of any tensor of any tensor rank vanish in one particular coordinate system, they vanish in all coordinate systems. A transformation of the variables of a tensor changes the tensor into another whose components are linear homogeneous functions of the components of the original tensor.
+
+A tensor space of type (r,s) can be described as a vector space tensor product between  r copies of vector fields and s copies of the dual vector fields, i.e., one-forms. For example,
+
+$T^((3,1))=TM tensor TM tensor TM tensor T^*M$
+
+is the vector bundle of (3,1)-tensors on a manifold M, where TM is the tangent bundle of M and $T^*M$ is its dual. Tensors of type (r,s) form a vector space. This description generalized to any tensor type, and an invertible linear map J:V->W induces a map J^~:V tensor $V^*->W$ tensor $W^*$, where $V^*$ is the dual vector space and J the Jacobian, defined by
+
+$J^~(v_1 tensor v_2^*)=(Jv_1 tensor (J^(T))^(-1)v_2^*)$	
+
+where $J^(T)$ is the pullback map of a form is defined using the transpose of the Jacobian. This definition can be extended similarly to other tensor products of V and $V^*$. When there is a change of coordinates, then tensors transform similarly, with J the Jacobian of the linear transformation.
+
++ ### **Projective space**
+
+A projective space is a space that is invariant under the group G of all general linear homogeneous transformation in the space concerned, but not under all the transformations of any group containing G as a subgroup.
+
+A projective space is the space of one-dimensional vector subspaces of a given vector space. For real vector spaces, the notation $RP^n$ or  $P^n$ denotes the real projective space of dimension n (i.e., the space of one-dimensional vector subspaces of $R^(n+1))$ and CP^n denotes the complex projective space of complex dimension n (i.e., the space of one-dimensional complex vector subspaces of $C^(n+1)$). P^n can also be viewed as the set consisting of $R^n$ together with its points at infinity.
+
++ ### **Projective geometry**
+
++ ##### **Introduction**
+
+A theorem from Euclid$'$s Elements (c. 300 BC) states that if a line is drawn through a triangle such that it is parallel to one side, then the line will divide the other two sides proportionately; that is, the ratio of segments on each side will be equal. This is known as the proportional segments theorem, or the fundamental theorem of similarity
+
+Now consider the effect produced by projecting these line segments onto another plane as shown in the figure. The first thing to note is that the projected line segments $A'B'$ and $D'E'$ are not parallel; i.e., angles are not preserved. From the point of view of the projection, the parallel lines AB and DE appear to converge at the horizon, or at infinity, whose projection in the picture plane is labeled $\Omega$. 
+
+It was Desargues who first introduced a single point at infinity to represent the projected intersection of parallel lines. Furthermore, he collected all the points along the horizon in one line at infinity. With the introduction of $\Omega $, the projected figure corresponds to a theorem discovered by Menelaus of Alexandria in the 1st century AD.
+
++ ##### **Parallel Lines & the Projection of Infinity**
+
+Since the factor $\Omega B'/\Omega A'$ corrects for the projective distortion in lengths, Menelaus$'$ theorem can be seen as a projective variant of the proportional segments theorem.
+With Desargues$'$s provision of infinitely distant points for parallels, the reality plane and the projective plane are essentially interchangeable $-$ that is, ignoring distances and directions (angles), which are not preserved in the projection. Other properties are preserved, however. For instance, two different points have a unique connecting line, and two different lines have a unique point of intersection. Although almost nothing else seems to be invariant under projective mappings, one should note that lines are mapped onto lines. This means that if three points are collinear (share a common line), then the same will be true for their projections. Thus, collinearity is another invariant property. Similarly, if three lines meet in a common point, so will their projections.
+
++ ##### **Projective Invariants**
+
+The following theorem is of fundamental importance for projective geometry. In its first variant, by Pappus of Alexandria (fl. AD 320) as shown in the figure, it only uses collinearity.
+
+Let the distinct points $A, B, C and D, E, F$ be on two different lines. Then the three intersection points $-$ x of AE and BD, y of AF and CD, and z of BF and CE $-$ are collinear.
+
+The second variant, by Pascal, as shown in the figure, uses certain properties of circles:
+If the distinct points A, B, C, D, E, and F are on one circle, then the three intersection points x, y, and z (defined as above) are collinear.
+
+There is one more important invariant under projective mappings, known as the cross ratio. Given four distinct collinear points A, B, C, and D, the cross ratio is defined as:
+
+$Crat (A, B, C, D) = AC/BC * BD/AD$
+
+It may also be written as the quotient of two ratios:
+
+$Crat (A, B, C, D) = AC/BC : AD/BD$
+
+The latter formulation reveals the cross ratio as a ratio of ratios of distances. And while neither distance nor the ratio of distance is preserved under projection, Pappus first proved the startling fact that the cross ratio was invariant $-$ that is:
+
+$Crat(A, B, C, D) = Crat(A', B', C', D'$)
+
+However, this result remained a mere curiosity until its real significance became gradually clear in the 19th century as mappings became more and more important for transforming problems from one mathematical domain to another.
+
++ ##### **Projective Conic Sections**
+
+Conic sections can be regarded as plane sections of a right circular cone. By regarding a plane perpendicular to the cones axis as the reality plane (RP), a $'cutting'$ plane as the picture plane (PP), and the cone$'$s apex as the projective $'eye'$, each conic section can be seen to correspond to a projective image of a circle. Depending on the orientation of the cutting plane, the image of the circle will be a circle, an ellipse, a parabola, or a hyperbola.
+
+A plane $\Omega$ passing through the apex and parallel to PP defines the line at infinity in the projective plane PP. The situation of $\Omega$  relative to RP determines the conic section in PP: If $\Omega$ intersects RP outside the base circle (the circle formed by the intersection of the cone and RP), the image of the circle will be an ellipse. If $\Omega$ is tangent to the base circle (in effect, tangent to the cone), the image will be a parabola. If $\Omega$ intersects the base circle (thus, cutting the circle in two), a hyperbola will result.
+
+Pascals theorem, quoted above, also follows easily for any conic section from its special case for the circle. Start by selecting six points on a conic section and project them back onto the base circle. As given earlier, the three relevant intersection points for six points on the circle will be collinear. Now project all nine points back to the conic section. Since collinear points (the three intersection points from the circle) are mapped onto collinear points, the theorem holds for any conic section. In this way the projective point of view unites the three different types of conics.
+
+Similarly, more complicated curves and surfaces in higher-dimensional spaces can be unified through projections. For example, Isaac Newton (1643 $-$ 1727) showed that all plane curves defined by polynomials in x and y of degree 3 (the highest power of the variables is 3) can be obtained as projective images of just five types of polynomials.
+
++ ### **Hash Functions**
+
+A hash function is simply a function that takes in input value, and from that input creates an output value deterministic of the input value. For any x input value, you will always receive the same y output value whenever the hash function is run. In this way, every input has a determined output. 
+
+A function is basically something that takes an input and from that input derives an output. 
+
+**$f(x) = y$**
+
+A hash function is therefore something that takes an input (which can be any data - numbers, files, etc) and outputs a hash. A hash is usually displayed as a hexadecimal number. 
+
+**$md5("hello world") = 5eb63bbbe01eeed093cb22bb8f5acdc3$**
+
+This is the hash function md5, which from any input data creates a 32 character hexadecimal output. Hash functions are generally irreversible (one-way), which means you can$'$t figure out the input if you only know the output $-$ unless you try every possible input (which is called a brute-force attack). 
+
+Hash functions are often used for proving that something is the same as something else, without revealing the information beforehand. Here$'$s an example.
+
+Let$'$s say Alice is bragging to Bob that she knows the answer to the challenge question in their Math class. Bob wants her to prove that she knows the answer, without her telling him what it is. So, Alice hashes her answer (let$'$s say the answer was 42) to produce this hash:
+
+**$md5(42) = ald06e83f027327d8461063f4ac58a6$**
+
+Alice gives this hash to Bob. Bob can not find out what the answer is from this hash $-$ but when he finds the answer himself, he can hash his answer and if he gets the same result, then he knows that Alice did indeed have the answer. Hashes are often used in this context of verifying information without revealing it to the party that is verifying.
+
++ ### **Binary Trees**
+
+Unlike Arrays, Linked Lists, Stack and queues, which are linear data structures, trees are hierarchical data structures.
+
+**Binary Tree:** A tree whose elements have at most 2 children is called a binary tree. Since each element in a binary tree can have only 2 children, we typically name them the left and right child.
+
+**Binary Tree Representation in C:** A tree is represented by a pointer to the topmost node in tree. If the tree is empty, then value of root is NULL.
+
+**Tree Vocabulary:** 
+
+The topmost node is called root of the tree. 
+
+The elements that are directly under an element are called its children. 
+
+The element directly above something is called its parent. 
+
+For example, $'a'$ is a child of $'f'$, and $'f'$ is the parent of $'a'$. Finally, elements with no children are called leaves.
+
+**A Tree node contains following parts:**
+
+1. Data
+
+2. Pointer to left child
+
+3. Pointer to right child
+
++ ### **Relational Algebra**
+
+Relational database systems are expected to be equipped with a query language that can assist its users to query the database instances. There are two kinds of query languages $-$ relational algebra and relational calculus.
+
+Relational algebra is a procedural query language, which takes instances of relations as input and yields instances of relations as output. It uses operators to perform queries. An operator can be either unary or binary. They accept relations as their input and yield relations as their output. Relational algebra is performed recursively on a relation and intermediate results are also considered relations.
+
+The fundamental operations of relational algebra are as follows:
+
++ ##### **Select**
+
+It selects tuples that satisfy the given predicate from a relation.
+
+Notation -  $\sigma_p(r)$
+
+Where $\sigma$ stands for selection predicate and r stands for relation. p is prepositional logic formula which may use connectors like and, or, and not. These terms may use relational operators like $-, =, \neq , \geq, \leq, <, >$.
+
++ ##### **Project**
+
+Selects and projects columns named as subject and author from the relation Books.
+
+It projects column(s) that satisfy a given predicate.
+
+Notation - $\Pi A1, A2, An (r)$
+
+Where A1, A2 , An are attribute names of relation r.
+
+Duplicate rows are automatically eliminated, as relation is a set.
+
++ ##### **Union**
+
+It performs binary union between two given relations.
+Where r and s are either database relations or relation result set (temporary relation).
+
+For a union operation to be valid, the following conditions must hold -
+
+r, and s must have the same number of attributes.
+
+Attribute domains must be compatible.
+
+Duplicate tuples are automatically eliminated.
+
++ ##### **Set different**
+
+The result of set difference operation is tuples, which are present in one relation but are not in the second relation.
+
+Notation - (r - s)
+
+Finds all the tuples that are present in r but not in s.
+
++ ##### **Cartesian product**
+
+Combines information of two different relations into one.
+
+Notation - (r x s)
+
++ ##### **Rename**
+
+The results of relational algebra are also relations but without any name. The rename operation allows us to rename the output relation. 'rename' operation is denoted with small Greek letter rho $\rho$.
+
+Notation - $\rho$ x (E)
+
+Where the result of expression E is saved with name of x.
+
+*Additional operations are - *
+
++ ##### *Set intersection*
+Intersection of two sets:
+The intersection of two sets are all the elements that appear in both sets. For example, if you have the two sets of numbers: {3,4,5,6,7}, and {5,6,7,8,9,10}, the intersection of these sets is:{5,6,7}.
+
++ ##### *Assignment*
+Sometimes it is useful to be able to write a relational algebra expression in parts using a temporary relation variable. The assignment operation, denoted $\leftarrow$, works like assignment in a programming language. No extra relation is added to the database, but the relation variable created can be used in subsequent expressions. Assignment to a permanent relation would constitute a modification to the database.
+
++ ##### *Natural join*
+Often we want to simplify queries on a cartesian product.
+For example, to find all customers having a loan at the bank and the cities in which they live, we need borrow and customer relations. Our selection predicate obtains only those tuples pertaining to only one column name.
+
+This type of operation is very common, so we have the natural join, denoted by a $\bowtie$ sign. Natural join combines a cartesian product and a selection into one operation. It performs a selection by forcing equality on those attributes that appear in both relation schemes. Duplicates are removed as in all relation operations.
+
++ ### **Database Basics**
+
++ ##### *Brief History of SQL*
+
+In 1970, Dr. E.F. Codd published "A Relational Model of Data for Large Shared Data Banks," an article that outlined a model for storing and manipulating data using tables. Shortly after Codd$'$s article was published, IBM began working on creating a relational database. Between 1979 and 1982, Oracle (then Relational Software, Inc.), Relational Technology, Inc. (later acquired by Computer Associates), and IBM all put out commercial relational databases, and by 1986 they all were using SQL as the data query language.
+
+Note: **SQL stands for Structured Query Language.**
+
+In 1986, the American National Standards Institute (ANSI) standardized SQL. This standard was updated in 1989, in 1992 (called SQL2), in 1999 (called SQL3), in 2003 (called SQL 2003), in 2006 (called SQL 2006) and in 2008 (called SQL 2008). Standard SQL is sometimes called ANSI SQL. All major relational databases support this standard but each has its own proprietary extensions. Unless otherwise noted, the SQL taught in this course is the standard ANSI SQL.
+
++ ##### *Relational Databases*
+
+A relational database at its simplest is a set of tables used for storing data. Each table has a unique name and may relate to one or more other tables in the database through common values.
+
+**Tables**
+
+A table in a database is a collection of rows and columns. Tables are also known as entities or relations.
+
+**Rows**
+
+A row contains data pertaining to a single item or record in a table. Rows are also known as records or tuples.
+
+**Columns**
+
+A column contains data representing a specific characteristic of the records in the table. Columns are also known as fields or attributes.
+
+*Relationships*
+
+A relationship is a link between two tables (i.e, relations). Relationships make it possible to find data in one table that pertains to a specific record in another table.
+
+**Datatypes**
+
+Each of a table$'$s columns has a defined datatype that specifies the type of data that can exist in that column. For example, the FirstName column might be defined as varchar(20), indicating that it can contain a string of up to 20 characters. Unfortunately, datatypes vary widely between databases.
+
+**Primary Keys**
+
+Most tables have a column or group of columns that can be used to identify records. For example, an Employee table might have a column called EmployeeID that is unique for every row. This makes it easy to keep track of a record over time and to associate a record with records in other tables.
+
+**Foreign Keys**
+
+Foreign key columns are columns that link to primary key columns in other tables, thereby creating a relationship. For example, the Customers table might have a foreign key column called SalesRep that links to EmployeeID, the primary key in the Employees table.
+
+**Relational Database Management System**
+
+A Relational Database Management System (RDBMS), commonly (but incorrectly) called a database, is software for creating, manipulating, and administering a database. For simplicity, we will often refer to RDBMSs as databases.
+
+**Popular Databases**
+
+Commercial Databases:
+
+**Oracle**
+
+Oracle is the most popular relational database. It runs on both Unix and Windows. It used to be many times more expensive than SQL Server and DB2, but it has come down a lot in price.
+
+**SQL Server**
+
+SQL Server is Microsoft's database and, not surprisingly, only runs on Windows. It has only a slightly higher market share than Oracle on Windows machines. Many people find it easier to use than Oracle.
+
+*DB2*
+
+IBM's DB2 was one of the earliest players in the database market. It is still very commonly used on mainframes and runs on both Windows and Unix.
+
+*Popular Open Source Databases*
+
+**MySQL**
+
+Because of its small size, its speediness, and its very good documentation, MySQL has quickly become the most popular open source database. MySQL is available on both Windows and Unix, but it lacks some key features such as support for stored procedures.
+
+**PostgreSQL**
+
+Until recently, PostgreSQL was the most popular open source database until that spot was taken over by MySQL. PostgreSQL now calls itself "the world's most advanced Open Source database software." It is certainly a featureful and robust database management system and a good choice for people who want some of the advanced features that MySQL doesn't yet have.
+
+**SQL Statements**
+
+Database Manipulation Language (DML)
+DML statements are used to work with data in an existing database. The most common DML statements are:
+
+SELECT
+
+INSERT
+
+UPDATE
+
+DELETE
+
+**Database Definition Language (DDL)**
+
+DDL statements are used to structure objects in a database. The most common DDL statements are:
+
+CREATE
+
+ALTER
+
+DROP
+
+**Database Control Language (DCL)**
+
+DCL statements are used for database administration. The most common DCL statements are:
+
+GRANT
+
+DENY (SQL Server Only)
+
+REVOKE
+
+
++ ### **Joins**
+
+Join is a combination of a Cartesian product followed by a selection process. A Join operation pairs two tuples from different relations, if and only if a given join condition is satisfied.
+
++ ##### **Theta Join**
+Theta join combines tuples from different relations provided they satisfy the theta condition. The join condition is denoted by the symbol $\bowtie$_$\Theta$.
+
+Notation
+R1 $\bowtie$_$\Theta$ R2
+
+R1 and R2 are relations having attributes (A1, A2, .., An) and (B1, B2,.. ,Bn) such that the attributes don$'$t have anything in common, that is R1 $\cap$ R2 = $\Phi$.
+
+Theta join can use all kinds of comparison operators.
+
++ ##### **Equijoin**
+
+When Theta join uses only equality comparison operator, it is said to be equijoin.
+
++ ##### **Outer Joins**
+
+Theta Join, Equijoin, and Natural Join are called inner joins. An inner join includes only those tuples with matching attributes and the rest are discarded in the resulting relation. Therefore, we need to use outer joins to include all the tuples from the participating relations in the resulting relation. There are three kinds of outer joins $-$ left outer join, right outer join, and full outer join
+
++ ##### **Left Outer Joins**
+
+Left Outer Join(R Left Outer Join S)
+
+All the tuples from the Left relation, R, are included in the resulting relation. If there are tuples in R without any matching tuple in the Right relation S, then the S-attributes of the resulting relation are made NULL.
+
++ ##### **Right Outer Joins**
+
+All the tuples from the Right relation, S, are included in the resulting relation. If there are tuples in S without any matching tuple in R, then the R-attributes of resulting relation are made NULL.
+
++ ##### **Full Outer Joins**
+
+All the tuples from both participating relations are included in the resulting relation. If there are no matching tuples for both relations, their respective unmatched attributes are made NULL
+
++ ### **CAP Theorem**
+
+In the past, when we wanted to store more data or increase our processing power, the common option was to scale vertically (get more powerful machines) or further optimize the existing code base. However, with the advances in parallel processing and distributed systems, it is more common to expand horizontally, or have more machines to do the same task in parallel. We can already see a bunch of data manipulation tools in the Apache project like Spark, Hadoop, Kafka, Zookeeper and Storm. However, in order to effectively pick the tool of choice, a basic idea of CAP Theorem is necessary. 
+
+**CAP Theorem is a concept that a distributed database system can only have 2 of the 3: Consistency, Availability and Partition Tolerance.**
+
+CAP Theorem is very important in the Big Data world, especially when we need to make trade off's between the three, based on our unique use case.
+
++ ##### **Partition Tolerance**
+
+This condition states that the system continues to run, despite the number of messages being delayed by the network between nodes. A system that is partition-tolerant can sustain any amount of network failure that doesn't result in a failure of the entire network. Data records are sufficiently replicated across combinations of nodes and networks to keep the system up through intermittent outages. When dealing with modern distributed systems, Partition Tolerance is not an option. It's a necessity. Hence, we have to trade between Consistency and Availability.
+
++ ##### **High Consistency**
+
+This condition states that all nodes see the same data at the same time. Simply put, performing a read operation will return the value of the most recent write operation causing all nodes to return the same data. A system has consistency if a transaction starts with the system in a consistent state, and ends with the system in a consistent state. In this model, a system can (and does) shift into an inconsistent state during a transaction, but the entire transaction gets rolled back if there is an error during any stage in the process.
+
++ ##### **High Availability**
+
+This condition states that every request gets a response on success/failure. Achieving availability in a distributed system requires that the system remains operational 100% of the time. Every client gets a response, regardless of the state of any individual node in the system. This metric is trivial to measure: either you can submit read/write commands, or you cannot. Hence, the databases are time independent as the nodes need to be available online at all times.The output could be either one. Hence why, high availability isn't feasible when analyzing streaming data at high frequency.
+
+Distributed systems allow us to achieve a level of computing power and availability that were simply not available in the past. Our systems have higher performance, lower latency, and near 100% up-time in data centers that span the entire globe. Best of all, the systems of today are run on commodity hardware that is easily obtainable and configurable at affordable costs. However, there is a price. Distributed systems are more complex than their single-network counterparts. Understanding the complexity incurred in distributed systems, making the appropriate trade-offs for the task at hand (CAP), and selecting the right tool for the job is necessary with horizontal scaling
+
++ ### **Data Structures: Tabular Data vs. Relational Data**
+
+With enough effort it is possible to fit a square peg into a round hole.  But we have all learned - sometimes more than once - that it is much easier if peg and hole have the same shape.
+
+Data managers also need to carefully consider the shape of their data to determine which data structures best describe their situation.  Choosing data formats and software tools that match a dataset's intrinsic structure will allow the data to slide into place with a minimum amount of hammering.
+
++ ##### **Tabular Data**
+
+For most people working with small amounts of data, the data table is the fundamental unit of organization.  The data table, arguably the oldest data structure, is both a way of organizing data for processing by machines and of presenting data visually for consumption by humans.  Elementary students learn how to organize data into rows and columns at a very early age while high school students master the intricacies of spreadsheets with MS Excel or OpenOffice Calc.  Even RDBMS (Relation Data Base Management Systems) have the data table as their fundamental unit of organization.
+
+Let's review the basic properties that make a dataset intrinsically tabular:
+
++ ###### **1.) Every record shares the same set of variables.**
+
+Another way of describing this in terms of rows and columns would be - Every row has the same set of column headers.Tabular data are inherently rectangular and cannot have "ragged rows".  If any row is lacking information for a particular column a missing value must be stored in that cell.  
+
++ ###### **2) Typical queries will map a record identifier onto one or more variables.**
+
+Here we see how the anticipated use of data affects how the data should be structured.  It is best to think of tabular data as being 'organized by row' where each row corresponds to a unique identifier such as the time a measurement was made.  When data are organized like this it is easy to answer the question: "What set of measurements was collected at time 'x' ?" by simply pulling out a single row of data. Storing data this way also makes it easy to extract data for use in time series and correlation plots by pulling out selected columns.
+
+On the other hand, asking questions about relationships between measurements does not fall out of this structure so easily.  This does not mean that data immediately need to be stored in a relational database to answer relational questions;  just that some software will have to read all of the data into memory before generating a data subset such as "A where B > C".
+
+As a general rule, tabular structure and basic formats like CSV are preferred when data are collected as long time series regardless of what you intend to do with the data later.
+
++ ###### **3) Lack of 'normalization' does not unreasonably increase data volumes.**
+
+Experienced database designers go to great lengths to follow the principles of database normalization.  Even when working with CSV files or spreadsheets it is important to pay attention to **First Normal Form which specifies "no repeating groups" and Second Normal Form which demands that "each column must depend on the primary key".**
+
+While generally following these excellent normalization tips for tabular data, real world situations will sometimes favor the simplicity of a tabular structure even if the table violates second normal form. 
+
++ ##### **Relational Data**
+
+Computer scientist E. F. Codd was working for IBM when he introduced his relational model in a 1970 paper titled: "A Relational Model of Data for Large Shared Data Banks". The original paper is till worth reading for a better understanding of the motivation behind the model and the Standard English QUEry Language (SEQUEL or SQL) that allows for human interaction with it.  From the introduction:
+
+The relational view (or model) of data provides a means of describing data with its natural structure only - that is, without superimposing any additional structure for machine representation purposes.  Accordingly, it provides a basis for a high level data language which will yield maximal independence between programs on the one hand and machine representation and organization of data on the other.
+
+Clearly, one of the goals of the relational model was to hide the row - column structure of data tables and replace it with a query language that allows one to pose English language questions such as:
+
+    SELECT site_name, elevation, MMI
+    
+    FROM StreamData
+    
+    WHERE elevation > 1000
+    
+    ORDER BY site_name;
+    
+With a relational database and SQL, no knowledge of the internal structure of the data store is necessary and no coding is required to subset the data as described in the query above. The structure of rows and columns within the database, after being described by the database designer, is completely invisible to the consumer of data.  An additional advantage of the relational model is that it reduces data duplication when the prescriptions of database normalization are carefully followed.
+
+The downside of using an RDBMS is that, unlike simple tables, most people do not learn about the relational model in elementary school.  Database design is an advanced skill and doing it well requires both training and experience and commands a commensurately high salary.  Perhaps because the relational data model and associated RDBMS are extremely successful in many business applications, the use of high-end, complex, relational databases is assumed to be a good solution for all types of data.  Unfortunately, this is not the case and we have seen many examples of overly complex systems being built by self-trained data managers for data that could have been described much more simply with one or more CSV tables.
+
+**The properties of datasets for which an RDBMS is the best choice:**
+
++ ###### 1) Typical queries involve both data and metadata.
+
+What we mean by data in this case is something that has a numeric value and is measured in some specific units.  Some arbitrary examples:
+
+- yield of a crop (kg/hectare)
+
+- average speed of traffic past an intersection (km/hour)
+
+- amount paid for an item ($)
+
+Associated metadata for each of these examples link numeric measurements with other information that may be partly numeric but often includes human readable text. Metadata for our three examples above might include:
+
+- year, county, crop, farmer, fertilizer, application strategy, weather info
+
+- date, intersection, neighbor, complaint, mediation strategy, weather info
+
+- date, cashier, item, store, purchaser info
+
+Of course all datasets need to have metadata identifying at least when and where measurements were taken.  But in cases like the examples above extensive metadata takes on a very data-like life of its own.  An agricultural scientist will want to ask questions of the data that involve both measured variables like crop yield and textual information like 'application info' (and  the ever important 'weather info'). In cases like these, the SQL language makes it very easy to extract data subsets based on any combination of data and metadata.
+
+Other software tools do exist that can read in large amounts of CSV formatted data and allow the same kind of querying - our favorite is the R Project for Statistical Computing. But you always need to keep in mind the skills and tools of your targeted audience of data consumers. If your target audience is most comfortable with SQL, give them a relational database.
+
++ ###### **2) Relational queries are expected AND the total data volume is too large to be stored in memory.**
+
+Software that reads in full data tables has a very different memory footprint from an RDBMS. In order to generate the data subset "A where B > C", most common software tools for working with tabular data will need to read the entire dataset into memory. When the volume of data approaches available memory on your computer this can cause very slow performance as any manipulation of the data will bog down your computer's paging system.  When this happens you are left with one of three main options:
+
+- install more RAM
+
+- split up the data before working with it
+
+- store the data in a relational database
+
+*Unlike software that reads in full data tables, an RDBMS can have one or more database indexes.* These indexes allow for fast data lookup and retrieval using only a fraction of the space required for the full dataset.  An RDBMS will be able to work with data efficiently so long as just the indexes can be read into available memory.
+
+Again, keep your target audience in mind along with this advice: Computer memory is cheaper than human memory in the long run.  If your data consumers are comfortable with SQL and relational databases then set the data up in an RDBMS.  But if your users have only elementary knowledge of data management you might consider spending money to upgrade the machine(s) they work on.  Time is money, after all, and the time spent designing and maintaining a relational database could buy an awful lot of RAM.
+
++ ### **Sharding**
+
+In the simplest sense, sharding your database involves breaking up your big database into many, much smaller databases that share nothing and can be spread across multiple servers."
+
+Technically, sharding is a synonym for horizontal partitioning. In practice, the term is often used to refer to any database partitioning that is meant to make a very large database more manageable.
+
+The governing concept behind sharding is based on the idea that as the size of a database and the number of transactions per unit of time made on the database increase linearly, the response time for querying the database increases exponentially. 
+
+Additionally, the costs of creating and maintaining a very large database in one place can increase exponentially because the database will require high-end computers. In contrast, data shards can be distributed across a number of much less expensive commodity servers. Data shards have comparatively little restriction as far as hardware and software requirements are concerned. 
+
+In some cases, database sharding can be done fairly simply. One common example is splitting a customer database geographically. Customers located on the East Coast can be placed on one server, while customers on the West Coast can be placed on a second  server. Assuming there are no customers with multiple locations, the split is easy to maintain and build rules around.
+
+Data sharding can be a more complex process in some scenarios, however. Sharding a database that holds less structured data, for example, can be very complicated, and the resulting shards may be difficult to maintain.
+
++ ### **OLTP (On-line Transaction Processing) vs. OLAP (On-line Analytical Processing) **
+- OLTP (On-line Transaction Processing) is characterized by a large number of short on-line transactions (INSERT, UPDATE, DELETE). The main emphasis for OLTP systems is put on very fast query processing, maintaining data integrity in multi-access environments and an effectiveness measured by number of transactions per second. In OLTP database there is detailed and current data, and schema used to store transactional databases is the entity model (usually 3NF). <Acts as an Operational System>
+
+- OLAP (On-line Analytical Processing) is characterized by relatively low volume of transactions. Queries are often very complex and involve aggregations. For OLAP systems a response time is an effectiveness measure. OLAP applications are widely used by Data Mining techniques. In OLAP database there is aggregated, historical data, stored in multi-dimensional schemas (usually star schema). <Acts as a Data Warehouse>
+
+
+The following summarizes the major differences between OLTP and OLAP system design:
+
++ ##### **Source of data**
+
+OLTP: Operational data; OLTPs are the original source of the data.
+
+OLAP: Consolidation data; OLAP data comes from the various OLTP Databases
+
++ ##### **Purpose of data**
+
+OLTP: To control and run fundamental business tasks
+
+OLAP: To help with planning, problem solving, and decision support
+
++ ##### **What is the data?**
+
+OLTP: Reveals a snapshot of ongoing business processes
+
+OLAP: Multi-dimensional views of various kinds of business activities
+
++ ##### **Inserts and Updates**
+
+OLTP: Short and fast inserts and updates initiated by end users
+
+OLAP: Periodic long-running batch jobs refresh the data
+
++ ##### **Queries**
+
+OLTP: Relatively standardized and simple queries Returning relatively few records
+
+OLAP: Often complex queries involving aggregations
+
++ ##### **Processing Speed**
+
+OLTP: Typically very fast
+
+OLAP: Depends on the amount of data involved; batch data refreshes and complex queries may take many hours; query speed can be improved by creating indexes
+
++ ##### **Space Requirements**
+
+OLTP: Can be relatively small if historical data is archived
+
+OLAP: Larger due to the existence of aggregation structures and history data; requires more indexes than OLTP
+
++ ##### **Database Design**
+
+OLTP: Highly normalized with many tables
+
+OLAP: Typically de-normalized with fewer tables; use of star and/or snowflake schemas
+
++ ##### **Backup and Recovery**
+
+OLTP: Backup religiously; operational data is critical to run the business, data loss is likely to entail significant monetary loss and legal liability
+
+OLAP: Instead of regular backups, some environments may consider simply reloading the OLTP data as a recovery method.
+
++ ### **Data Frames & Series**
+
++ ##### **Series**
+
+A series is a one-dimensional labeled array capable of holding any data type (integers, strings, floating point numbers, Python objects, etc.). The axis labels are collectively referred to as the index. The basic method to create a Series is to call:
+
+    s = pd.Series(data, index=index)
+    
+Here, data can be many different things:
+
+- a Python dict
+- an ndarray
+- a scalar value (like 5)
+
+The passed index is a list of axis labels. Thus, this separates into a few cases depending on what data is
+used.
+<see pandas section for specifics in terms of coding>
+
++ ##### ** Data Frame**
+
+A Data Frame is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. It is generally the most commonly used pandas object. Like Series, DataFrame accepts many different kinds of input:
+
+- Dict of 1D ndarrays, lists, dicts, or Series
+- 2-D numpy.ndarray
+- Structured or record ndarray
+- A Series
+- Another DataFrame
+
+Along with the data, you can optionally pass index (row labels) and columns (column labels) arguments. If you pass an index and / or columns, you are guaranteeing the index and / or columns of the resulting DataFrame. Thus, a dict of Series plus a specific index will discard all data not matching up to the passed index.
+
+If axis labels are not passed, they will be constructed from the input data based on common sense rules.
+
++ ### **Multidimensional Data Model**
+
++ ### **ETL (Extract, Transform and Load) Process**
+
+ETL (Extract, Transform and Load) is a process in data warehousing responsible for pulling data out of the source systems and placing it into a data warehouse. ETL involves the following tasks:
+
++ ##### **Data Extraction**
+
+Extracting the data from source systems (SAP, ERP, other oprational systems), data from different source systems is converted into one consolidated data warehouse format which is ready for transformation processing. 
+
++ ##### **Data Transformation**
+
+Transforming the data may involve the following tasks:
+
+- Applying business rules (so-called derivations, e.g., calculating new measures and dimensions)
+
+- Cleaning (e.g., mapping NULL to 0 or "Male" to "M" and "Female" to "F" etc.)
+
+- Filtering (e.g., selecting only certain columns to load)
+
+- Splitting a column into multiple columns and vice versa
+
+- Joining together data from multiple sources (e.g., lookup, merge)
+
+- Transposing rows and columns
+
+- Applying any kind of simple or complex data validation (e.g., if the first 3 columns in a row are empty   then reject the row from processing)
+
++ ##### **Data Loading**
+
+Loading the data into a data warehouse or data repository for reporting applications
+
++ ### **Reporting vs. Business Intelligence (BI) vs. Analytics**
+
++ ##### **Reporting**
+
+Reporting takes factual data and presents it. There's no judgement or insight added. People can, of course, derive insight from reports, but that's up to them.
+
++ ##### **Analytics**
+
+Analytics asks questions of the data collected and provides answers and insight. It (hopefully) injects business expertise and knowledge into the analysis to deliver the final output- a recommendation, course of action, or prediction.
+
+Analytics drives business decisions by questioning and interpreting the data with a distinct purpose in mind. Any good data scientist will tell you that analytics without business purpose, intelligence, and expertise applied can be very dangerous, often leading to erroneous findings.
+
+Analytics goes beyond "what happened" and seeks to answer "why it happened" and "what can be done about it."
+
+Ex:
+
+Communication between a selling team and buying has decreased in a given sales opportunity. Diagnostic analysis of the activity data shows that the selling team has been slow in responding to buyer inquiries. The analytics algorithm recommends a concerted effort to increase responsiveness, and that a specific sales play be run to re-engage the buying team.
+
+Predictive analytics combined with prescriptive recommendations can provide powerful business drivers that can bring desired outcomes.
+
+Ex:
+
+Regression analysis of sales activity data shows that the probability of closing a deal increases by over 20% after a second product demonstration is given to buying teams (predictive analysis). The analytics algorithm recommends that focused sales plays, designed to engage buyers in a second demonstration, be run on any opportunities where buyers have seen only a first demonstration (prescriptive analysis).
+
++ ##### **Business Intelligence (BI)**
+Business intelligence (BI) encompasses a wide variety of tools, applications and methodologies that enable organizations to collect data from internal systems and external sources; prepare it for analysis; develop and run queries against that data; and create reports, dashboards and data visualizations to make the analytical results available to corporate decision-makers, as well as operational workers.
+
+BI allows ad-hoc queries, drill down viewing, and comparisons across various dimensions of the data.
+
+Ex:
+
+A flexible report allowing ad-hoc comparisons of sales activities between sales teams from different regions and territories.
+
++ ##### **Key Differences**
+
+By nature, reporting is easier to do than analytics, so you see much more of it in business.
+Reporting extracts data from various data sources, allows comparisons, and makes the information easier to understand by summarizing and visualizing the data in tables, charts and dashboards.
+
+Reporting is valuable. But it stops short of analytics.
+
+# **Statistics:**
+
++ ### **Histograms**
+
+A histogram is a bar graph of raw data that creates a picture of the data distribution. The bars represent the frequency of occurrence by classes of data. A histogram shows basic information about the data set, such as central location , width of spread , and shape.
+
+Bin width is the width of the intervals whose frequencies we visualize in a histogram.
+
++ ##### **Constructing a Histogram**
+
+**Method 1**
+
++ ###### The first step in constructing a histogram is to decide how the process should be measured - what data should be collected. The data must be Variable Data, or that which is measured on a continuous scale, such as: volume, size, weight, time, temperature.
+
++ ###### Next, gather the data. As a rule of thumb, over 50 data points should be collected in order to see meaningful patterns. You can use historical information to establish a baseline (if the measurement method was exactly the same), and you may wish to compare samples drawn from different shifts or time periods.
+
++ ###### Now that you have gathered the data, it should be put into a tabular form, such as a spreadsheet. You can then construct a histogram by several methods. The preferable method is to use a statistical software package. Virtually all of them will accept data copied from a spreadsheet.
+
+**Method 2**
+
+You can also use the charting function of your spreadsheet program, but you may need to organize the data and calculate the charting intervals. If you choose this route, use the following sequence:
+
++ ###### Count the number of data points (50 in our height example).
+
++ ###### Determine the range of the sample - the difference between the highest and lowest values.
+
++ ###### Determine the number of class intervals. You can use either of two methods as general guidelines in determining the number of intervals:
+
+A.	Use ten intervals as a rule of thumb.
+
+B.	Calculate the square root of the number of data points and round to the nearest whole number.
+
+You may wish to experiment with different interval numbers. If there are too many, the distribution will spread out, and the histogram will look flat. Likewise, if there are too few intervals, the distribution can look artificially tight.
+
++ ###### Determine the interval class width by one of two methods:
+
+A.	Width = Range/# Intervals 
+
+B.	Divide the Standard Deviation by three. This is slightly more class intervals than our rule of thumb     indicated.
+
++ ###### Develop a table or spreadsheet with relative frequencies for each interval, which becomes a tabular histogram
+
++ ##### **Basic Coding Structure**
+
+        In R:
+        
+        hist("Dataframe", 
+        
+        main = "Title of Histogram - i.e Frequncy of _ _ _",
+        
+        xlab = "Label of X-axis",
+        
+        border = "Color of graph border",
+        
+        col = "Color of bins",
+        
+        xlim = c(Lower limit of histogram, Upper limit of histogram),
+        
+        las = 1,
+        
+        breaks = "Number of Bins")
+        
++ ### **Central Limit Theorem**	
+
+The central limit theorem states that when samples from a data set with a known variance are aggregated their mean roughly equals the population mean. Said another way, CLT is a statistical theory that states that given a sufficiently large sample size from a population with a finite level of variance, the mean of all samples from the same population will be approximately equal to the mean of the population. Furthermore, all the samples will follow an approximate normal distribution pattern, with all variances being approximately equal to the variance of the population divided by each sample's size.
+
++ ##### **BREAKING DOWN 'Central Limit Theorem - CLT'**
+According to the central limit theorem, the mean of a sample of data will be closer to the mean of the overall population in question as the sample size increases, notwithstanding the actual distribution of the data, and whether it is normal or non-normal. As a general rule, sample sizes equal to or greater than 30 are considered sufficient for the CLT to hold, meaning the distribution of the sample means is fairly normally distributed.
+
++ ### **Monte Carlo Method**	
+
+Risk analysis is part of every decision we make. We are constantly faced with uncertainty, ambiguity, and variability. And even though we have unprecedented access to information, we can't accurately predict the future. Monte Carlo simulation (also known as the Monte Carlo Method) lets you see all the possible outcomes of your decisions and assess the impact of risk, allowing for better decision making under uncertainty.
+
++ ##### **What is Monte Carlo Simulation?**
+
+Monte Carlo simulation is a computerized mathematical technique that allows people to account for risk in quantitative analysis and decision making. The technique is used by professionals in such widely disparate fields as finance, project management, energy, manufacturing, engineering, research and development, insurance, oil & gas, transportation, and the environment.
+
+Monte Carlo simulation furnishes the decision-maker with a range of possible outcomes and the probabilities they will occur for any choice of action.. It shows the extreme possibilities-the outcomes of going for broke and for the most conservative decision-along with all possible consequences for middle-of-the-road decisions.
+
+The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems.
+
++ ##### **How Monte Carlo Simulation Works**
+
+Monte Carlo simulation performs risk analysis by building models of possible results by substituting a range of values-a probability distribution-for any factor that has inherent uncertainty. It then calculates results over and over, each time using a different set of random values from the probability functions. Depending upon the number of uncertainties and the ranges specified for them, a Monte Carlo simulation could involve thousands or tens of thousands of recalculations before it is complete. Monte Carlo simulation produces distributions of possible outcome values.
+
+By using probability distributions, variables can have different probabilities of different outcomes occurring. Probability distributions are a much more realistic way of describing uncertainty in variables of a risk analysis.
+
++ ### **Distributions**
+
+*Common probability distributions include:*
+
++ ##### **Normal**
+Or "bell curve." The user simply defines the mean or expected value and a standard deviation to describe the variation about the mean. Values in the middle near the mean are most likely to occur. It is symmetric and describes many natural phenomena such as people's heights. Examples of variables described by normal distributions include inflation rates and energy prices.
+
++ ##### **Lognormal**
+
+Values are positively skewed, not symmetric like a normal distribution. It is used to represent values that don't go below zero but have unlimited positive potential. Examples of variables described by lognormal distributions include real estate property values, stock prices, and oil reserves.
+
++ ##### **Uniform**
+
+All values have an equal chance of occurring, and the user simply defines the minimum and maximum. Examples of variables that could be uniformly distributed include manufacturing costs or future sales revenues for a new product.
+
++ ##### **Triangular**
+
+The user defines the minimum, most likely, and maximum values. Values around the most likely are more likely to occur. Variables that could be described by a triangular distribution include past sales history per unit of time and inventory levels.
+
++ ##### **PERT**
+
+The user defines the minimum, most likely, and maximum values, just like the triangular distribution. Values around the most likely are more likely to occur. However values between the most likely and extremes are more likely to occur than the triangular; that is, the extremes are not as emphasized. An example of the use of a PERT distribution is to describe the duration of a task in a project management model.
+
++ ##### **Discrete**
+
+The user defines specific values that may occur and the likelihood of each. An example might be the results of a lawsuit: 20% chance of positive verdict, 30% change of negative verdict, 40% chance of settlement, and 10% chance of mistrial.
+
+During a Monte Carlo simulation, values are sampled at random from the input probability distributions. Each set of samples is called an iteration, and the resulting outcome from that sample is recorded. Monte Carlo simulation does this hundreds or thousands of times, and the result is a probability distribution of possible outcomes. In this way, Monte Carlo simulation provides a much more comprehensive view of what may happen. It tells you not only what could happen, but how likely it is to happen.
+Monte Carlo simulation provides a number of advantages over deterministic, or "single-point estimate" analysis:
+
++ ##### **Probabilistic Results**
+
+Results show not only what could happen, but how likely each outcome is.
+
++ ##### **Graphical Results**
+
+Because of the data a Monte Carlo simulation generates, it's easy to create graphs of different outcomes and their chances of occurrence. This is important for communicating findings to other stakeholders.
+
++ ##### **Sensitivity Analysis**
+
+With just a few cases, deterministic analysis makes it difficult to see which variables impact the outcome the most. In Monte Carlo simulation, it's easy to see which inputs had the biggest effect on bottom-line results.
+
++ ##### **Scenario Analysis**
+
+In deterministic models, it's very difficult to model different combinations of values for different inputs to see the effects of truly different scenarios. Using Monte Carlo simulation, analysts can see exactly which inputs had which values together when certain outcomes occurred. This is invaluable for pursuing further analysis.
+
++ ##### **Correlation of Inputs**
+
+In Monte Carlo simulation, it's possible to model interdependent relationships between input variables. It's important for accuracy to represent how, in reality, when some factors goes up, others go up or down accordingly.
+
+An enhancement to Monte Carlo simulation is the use of Latin Hypercube sampling, which samples more accurately from the entire range of distribution functions.
+
++ ### **Hypothesis Testing**
+
++ ### **P-value**
++ ### **Chi-Sq Test**
++ ### **Estimation**
++ ### **Confidence Interval (CI)**	
++ ### **MLE**
++ ### **Kernel Density Estimate**
++ ### **Regression**
++ ### **Covariance**
++ ### **Correlation**
++ ### **Causation**
++ ### **Least-Sq-Fit**
++ ### **Euclidean Distance**
++ ### **Percentiles & Outliers**
++ ### **Probability Theory**
++ ### **Bayes Theorem	Random Variables**
++ ### **Cumul. Dist. Fn.**
++ ### **Continuous Dist: Normal, Poisson, Gaussian**
++ ### **Skewness**
++ ### **ANOVA**
++ ### **Prob. Density**
++ ### **Desc. Stats**
+
+# Programming:
++ ### Install Pkgs
++ ### Factor Analysis	
++ ### Manipulate Data Frames	
++ ### Subsetting Data		
++ ### Reading Raw Data	
++ ### Reading CSV Data	
++ ### Data Frames	
++ ### Lists	
++ ### Factors	
++ ### Arrays	
++ ### Matrices 
++ ### Vectors	
++ ### Rapid Miner	
++ ### IBM/SPSS	
++ ### Expressions	
++ ### R Basics		
++ ### R Setup		
++ ### R Studio	
++ ### Working in Excel	
++ ### Python Basics
++ ### **Web Scrapping**
+Web Scraping (also termed Screen Scraping, Web Data Extraction, Web Harvesting etc.) is a technique employed to extract large amounts of data from websites whereby the data is extracted and saved to a local file in your computer or to a database in table (spreadsheet) format.
+Data displayed by most websites can only be viewed using a web browser. They do not offer the functionality to save a copy of this data for personal use. The only option then is to manually copy and paste the data - a very tedious job which can take many hours or sometimes days to complete. Web Scraping is the technique of automating this process, so that instead of manually copying the data from websites, the Web Scraping software will perform the same task within a fraction of the time.
+
+
+# Machine Learning:
++ ### What is MI	
++ ### Num. Var	
++ ### Categ. Var	
++ ### Supervised Learning	
++ ### Unsupervised Learning	
++ ### Training & Testing Data	
++ ### Classifier	
++ ### Prediction	
++ ### Lift	
++ ### Overlifting	
++ ### Bias & Variance
++ ### Trees & Classification	
++ ### Classification Rate	
++ ### Decision Trees	
++ ### Boosting	
++ ### Naïve Bayes Classifiers
++ ### K-Nearest Neighbor	
++ ### Logistic Regression	
++ ### Ranking		
++ ### Linear Regression	
++ ### Perception	
++ ### Hierarchical Clustering	
++ ### K-means Clustering	
++ ### Neural Networks	
++ ### Sentiment Analysis	
++ ### Collaborative Filtering	
++ ### Tagging	
+
+# Text Mining/ NLP:
++ ### Vocabulary Mapping	
++ ### Classify Text	
++ ### Using NLTK	
++ ### Using Weka	
++ ### Using Mahout	
++ ### Feature Extraction	
++ ### Market Based Analysis	
++ ### Association Rules	
++ ### Support Vector Machines	
++ ### Term Frequency & Weight	
++ ### Term Document Matrix		
++ ### UIMA	
++ ### Text Analysis	
++ ### Entity Recognition	
++ ### Corpus
+
+# Visualization:
++ ### Data Exploration in R (Histogram, Boxplot, Etc.)	
++ ### Uni, Bi, & Multivariate Vizualization	
++ ### ggplot2	Histogram & Pie(Uni)	
++ ### Tree & Tree Map	
++ ### Scatter Plot (Bivariate)	
++ ### Line Charts( Bivariate)	
++ ### Spatial Charts	
++ ### Survey Plot	
++ ### Timeline	
++ ### Decision Tree	
++ ### D3.js	
++ ### InfoVis	
++ ### IBM ManyEyes	
++ ### Tableau
+
+# Big Data:
++ ### Map Reduce Fund.	
++ ### Hadoop Comp.	
++ ### HDFS	
++ ### Data Rep. Princip.	
++ ### Setup Hadoop (IBM/ Cloudera/ HortonWorks)	
++ ### Name & Data Nodes	
++ ### Job & Task Tracker	
++ ### M/R Programming	
++ ### Sqoop: Loading Data in HDFS	
++ ### Flume, Scribe: For Unstruct. Data	
++ ### SQL w/ PIG	
++ ### DWH w/ HIVE	
++ ### Scribe, Chukwa for Weblog	
++ ### Using Mahout	
++ ### Zookeeper Avro		
++ ### Storm: Hadoop Realtime	
++ ### Rhadoop, RHIPE	
++ ### rmr	
++ ### Cassandra	
++ ### MongoDB, Neo4j
+
+# Data Ingestion:
++ ### Summ. Of Data Formats		
++ ### Data Discovery	
++ ### Data Sources & Acquis.	
++ ### Data Integration	
++ ### Data Fusion	
++ ### Transf. & Enrich.	
++ ### Data Survey	
++ ### Google OpenRefine	
++ ### How much data?	
++ ### Using ETL
+
+# Data Munging:
++ ### Princip. Comp. Analysis	
++ ### Stratified Sampling	
++ ### Denoising	
++ ### Feature Extraction	
++ ### Binning Sparse Values	
++ ### Unbiased Estimators	
++ ### Handling Missing Values	
++ ### Data Scrubbing		
++ ### Normalization	
++ ### Dimensionality & Numerosity Reduction	
+
+# Toolbox:
++ ### MS Excel w/ Analysis ToolPak	
++ ### Java	
++ ### Python	
++ ### R	
++ ### R-Studio	
++ ### Rattle	
++ ### Weka	
++ ### Knime	
++ ### RapidMiner	
++ ### Hadoop Dist of Choice	
++ ### Spark	
++ ### Storm	
++ ### Flume	
++ ### Scribe	
++ ### Chukwa		
++ ### Nutch	
++ ### Talend	
++ ### Scraperwiki	
++ ### Webscraper	
++ ### Sqoop	
++ ### tm	
++ ### RWeka	
++ ### NLTK	
++ ### RHIPE	
++ ### D3.js	
++ ### ggplot2	
++ ### Shiny	
++ ### IBM Languageware	
++ ### Cassandra	
++ ### MongoDB
+
+```
+
